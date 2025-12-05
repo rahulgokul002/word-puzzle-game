@@ -1,3 +1,83 @@
+# Word Puzzle Game - Laravel Project
+
+A web-based Word Puzzle Game built with **Laravel**, allowing users to generate puzzles, submit words, and track scores via a leaderboard. This project demonstrates clean architecture with **services**, **form requests**, and AJAX-based frontend interactions.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Database Setup](#database-setup)
+- [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [License](#license)
+
+---
+
+## Features
+
+- Generate random puzzles from a set of words.
+- Submit words for puzzles.
+- Real-time leaderboard showing top scores.
+- Score calculation based on word lengths.
+- Validates words using a dictionary API.
+- Clean Laravel architecture with services and form requests.
+- AJAX-based frontend for dynamic puzzle interactions.
+
+---
+
+## Requirements
+
+- PHP >= 8.1
+- Composer
+- Laravel >= 10
+- MySQL / MariaDB
+- Node.js & npm (for frontend assets)
+- Git
+
+---
+
+## Installation
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/rahulgokul002/word-puzzle-game
+cd word-puzzle-game
+
+
+composer install
+npm install
+npm run dev
+php artisan migrate
+app/
+├─ Http/
+│  ├─ Controllers/
+│  │  └─ PuzzleController.php
+│  ├─ Requests/
+│  │  └─ AddWordRequest.php
+├─ Models/
+│  ├─ Puzzle.php
+│  └─ Submission.php
+├─ Services/
+│  ├─ PuzzleService.php
+database/
+├─ migrations/
+└─ seeders/
+resources/
+├─ views/
+│  └─ puzzle/
+│      └─ display-puzzle.blade.php
+        └─ leaderboard.blade.php
+public/
+└─ js/
+    └─ puzzle.js
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
