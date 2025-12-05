@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddWordRequest;
+use App\Http\Requests\GeneratePuzzleRequest;
+use App\Http\Requests\LeaderboardRequest;
+use App\Http\Requests\SubmitPuzzleRequest;
 use Illuminate\Http\Request;
 use App\Services\PuzzleService;
 use Illuminate\Validation\ValidationException;
@@ -18,7 +21,7 @@ class PuzzleController extends Controller
     /** 
     * Generate and display a new puzzle.
     */
-    public function generate(Request $request)
+    public function generate(GeneratePuzzleRequest $request)
     {
         $user = $request->user();
 
@@ -28,7 +31,7 @@ class PuzzleController extends Controller
             'id'           => $puzzle->id,
             'code'         => $puzzle->letters,
             'user'         => $user,
-            'source_words' => $puzzle->letters, // optionally pass the original words if stored
+            'source_words' => $puzzle->letters,
         ]);
     }
 
@@ -38,7 +41,7 @@ class PuzzleController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function leaderboard(Request $request)
+    public function leaderboard(LeaderboardRequest  $request)
     {
         $userId = (int) $request->query('user_id');
 
@@ -90,16 +93,16 @@ class PuzzleController extends Controller
     /**
      * Submit puzzle and get score & words found.
      */
-    public function submit(Request $request)
+    public function submit(SubmitPuzzleRequest  $request)
     {
-        $request->validate([
-            'puzzle_id' => 'required|integer',
-            'user_id'   => 'required|integer',
-        ]);
+        $data = $request->validated();
+
+        $puzzleId = (int) $data['puzzle_id'];
+        $userId   = (int) $data['user_id'];
 
         $result = $this->puzzleService->calculateScore(
-            $request->puzzle_id,
-            $request->user_id
+            $puzzleId,
+            $userId
         );
 
         return response()->json([
